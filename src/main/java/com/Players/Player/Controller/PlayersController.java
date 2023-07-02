@@ -30,5 +30,12 @@ public class PlayersController {
         return currentPlayer;
     }
 
+    @PutMapping(path = "{id}")
+    Player updatePlayerInformation(@PathVariable(name="id") String incomingId, @RequestBody Player incomingupdatePlayer){
+        Player currentPlayer =getPlayerInformation(incomingId);
+        currentPlayer.name = incomingupdatePlayer.name;
+        return new Player();
+    }
+
 
 }
