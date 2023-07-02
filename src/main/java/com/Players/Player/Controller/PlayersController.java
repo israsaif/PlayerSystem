@@ -37,5 +37,11 @@ public class PlayersController {
         return new Player();
     }
 
+    @DeleteMapping(path = "{id}")
+    Player deletePlayer(@PathVariable(name = "id")String id){
+        Player currentPlayer = getPlayerInformation(id);
+        listOfPlayers.remove(currentPlayer);
+        return currentPlayer;
 
+    }
 }
