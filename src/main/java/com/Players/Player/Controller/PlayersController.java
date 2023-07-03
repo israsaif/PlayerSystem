@@ -1,5 +1,7 @@
 package com.Players.Player.Controller;
 import com.Players.Player.Model.Player;
+import com.Players.Player.Services.PlayerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -8,40 +10,38 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @RequestMapping(value = "api/p1/Player")
 public class PlayersController {
 
+    @Autowired
+    PlayerService playerService;
 
-    CopyOnWriteArrayList<Player> listOfPlayers = new CopyOnWriteArrayList<>();
 
     @PostMapping//create
-    Player createPlayer(@RequestBody Player addPlayer) {
-        listOfPlayers.add(addPlayer);
-        return new Player();
+   public Player createPlayer(@RequestBody Player addPlayer) {
+
+        return playerService.createPlayer(addPlayer);
     }
 
     @GetMapping//GetAll
-    List<Player> getPlayerInformation() {
-        return listOfPlayers;
+    public List<Player> getPlayerInformation() {
+        return playerService.getAllPlayers();
     }
 
     @GetMapping(path = "{id}")
-    Player getPlayerInformation(@PathVariable(name = "id") String incomingId) { //
-        Player currentPlayer = listOfPlayers.stream().filter((currPlayer) -> {
-            return currPlayer.id.equals(incomingId);
-        }).findAny().get();
-        return currentPlayer;
+    public Player getPlayerInformation(@PathVariable(name = "id") String id) { //
+
+        return playerService.getPlayerInformation(id);
     }
 
     @PutMapping(path = "{id}")
-    Player updatePlayerInformation(@PathVariable(name="id") String incomingId, @RequestBody Player incomingupdatePlayer){
-        Player currentPlayer =getPlayerInformation(incomingId);
-        currentPlayer.name = incomingupdatePlayer.name;
-        return new Player();
+    public Player updatePlayerInformation(@PathVariable(name="id") String id, @RequestBody Player incomingupdatePlayer){
+
+        return playerService.updatePlayerInformation(id,incomingupdatePlayer);
     }
 
     @DeleteMapping(path = "{id}")
-    Player deletePlayer(@PathVariable(name = "id")String id){
-        Player currentPlayer = getPlayerInformation(id);
-        listOfPlayers.remove(currentPlayer);
-        return currentPlayer;
+     public   Player deletePlayer(@PathVariable(name = "id")String id){
+
+        return playerService.deletePlayer(id);
 
     }
+
 }
