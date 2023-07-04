@@ -4,7 +4,7 @@ import com.Players.Player.Services.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+
 
 @RestController
 @RequestMapping(value = "api/p1/Player")
