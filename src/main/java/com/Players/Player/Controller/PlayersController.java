@@ -1,6 +1,7 @@
 package com.Players.Player.Controller;
 import com.Players.Player.Model.Player;
 import com.Players.Player.Services.PlayerService;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -27,8 +28,11 @@ public class PlayersController {
 
     @GetMapping(path = "{id}")
     public Player getPlayerInformation(@PathVariable(name = "id") String id) { //
-
-        return playerService.getPlayerInformation(id);
+        Player playerFound = null;
+        if (Strings.isNotBlank(id)){
+            playerFound = playerService.getPlayerInformation(id);
+        }
+        return playerFound;
     }
 
     @PutMapping(path = "{id}")

@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 @Entity
 public class Player {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public String id;
     public String name;
 }
